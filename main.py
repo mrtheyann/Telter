@@ -59,7 +59,7 @@ def new_post(title, content):
 def main():
   print('Enter the title of your article:')
   title = prompt('> ')
-  print(('Enter the content of your article.', \
+  print('Enter the content of your article.' '\n'
    'Once done, press Meta+Enter (Or Escape followed by Enter) in order to accept the input.'))
 
   content = prompt('> ', multiline=True) 
