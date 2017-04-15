@@ -21,7 +21,6 @@ access_secret = 'access_secret'
 consumer_key = 'consumer_key'
 consumer_secret = 'consumer_secret'
 
-
 '''
 Initialization for both twitter and telegraph APIs'
 '''
@@ -51,8 +50,9 @@ def new_post(title, content):
     title=title,
     html_content=markdown(content, output_format='xhtml5')
     )
-  print('http://telegra.ph/{}'.format(post))
-  return response['path']
+  link = response['path']
+  print('http://telegra.ph/{}'.format(link))
+  return link
 
 
 #Main controller
@@ -60,12 +60,11 @@ def main():
   print('Enter the title of your article:')
   title = prompt('> ')
   print('Enter the content of your article.' '\n'
-   'Once done, press Meta+Enter (Or Escape followed by Enter) in order to accept the input.'))
+   'Once done, press Meta+Enter (Or Escape followed by Enter) in order to accept the input.')
 
   content = prompt('> ', multiline=True) 
   post = new_post(title, content)
   update_status('http://telegra.ph/{}'.format(post))
-  pass
 
 if __name__ == '__main__':
   main()
