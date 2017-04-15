@@ -36,37 +36,35 @@ api = twitter.Api(consumer_key = consumer_key,
 user = api.VerifyCredentials(include_entities=False, skip_status=True, include_email=False)
 
 
-#updating twitter status
+#Updating twitter status
 def update_status(url):
   api.UpdateProfile(profileURL=url)
   print('Profile URL updated successfully')
   sys.exit()
   pass
 
-#dummy function, skeleton for posting function
+#Creating telegraph post
 def new_post(title, content):
   telegraph.create_account(short_name=user.screen_name)
-  
   response = telegraph.create_page(
     author_name='{0} | @{1}'.format(user.name, user.screen_name),
-    title,
+    title=title,
     html_content=markdown(content, output_format='xhtml5')
     )
-  
-  print('http://telegra.ph/{}'.format(response['path']))
-  pass
+  print('http://telegra.ph/{}'.format(post))
+  return response['path']
 
 
-#currently deep debuging no idea whats going on here
+#Main controller
 def main():
   print('Enter the title of your article:')
   title = prompt('> ')
-  print ('''
-Enter the content of your article.
-Once done, press Meta+Enter (Or Escape followed by Enter) in order to accept the input.''')
+  print(('Enter the content of your article.', \
+   'Once done, press Meta+Enter (Or Escape followed by Enter) in order to accept the input.'))
 
   content = prompt('> ', multiline=True) 
-  new_post(title, content)
+  post = new_post(title, content)
+  update_status('http://telegra.ph/{}'.format(post))
   pass
 
 if __name__ == '__main__':
